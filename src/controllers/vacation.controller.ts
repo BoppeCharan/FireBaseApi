@@ -1,9 +1,9 @@
-import { NextFunction , Request , Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { VacationDto } from '../dtos/vacation.dtos';
 import { vacation } from '../interfaces/vacation.interface';
 import vacationService from '../services/vacation.service';
 
-class vacationController{
+class vacationController {
 
   private vacationServicee = new vacationService();
 
@@ -13,7 +13,7 @@ class vacationController{
       var employeeId = req.params.employeeId;
 
       this.vacationServicee
-        .readVacationData(PhoneNumber , employeeId)
+        .readVacationData(PhoneNumber, employeeId)
         .then(s => {
           res.status(200).json(s);
         })
@@ -29,10 +29,10 @@ class vacationController{
     try {
       const phoneNumber = req.params.phoneNumber;
       const employeeId = req.params.emp_id;
-      const vacation : vacation = req.body;
+      const vacation: vacation = req.body;
 
       this.vacationServicee
-        .updateVacation(phoneNumber, vacation , employeeId)
+        .updateVacation(phoneNumber, vacation, employeeId)
         .then(s => {
           res.status(200).json(s);
         })
@@ -70,7 +70,7 @@ class vacationController{
       const id = req.params.employeeId;
 
       this.vacationServicee
-        .createEmployeeVacation(phoneNumber,  vacation , id)
+        .createEmployeeVacation(phoneNumber, vacation, id)
         .then(s => {
           res.status(200).json(s);
         })

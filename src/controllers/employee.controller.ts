@@ -1,9 +1,9 @@
-import { NextFunction , Request , Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { EmployeeDto } from '../dtos/employee.dtos';
 import { Employee } from '../interfaces/employee.interface';
 import EmployeeService from '../services/employee.service';
 
-class staffManagementController{
+class staffManagementController {
 
   private employeeServicee = new EmployeeService();
 
@@ -13,15 +13,15 @@ class staffManagementController{
       var employeeId = req.params.employeeId;
 
       this.employeeServicee
-        .readEmployeeData(PhoneNumber , employeeId)
+        .readEmployeeData(PhoneNumber, employeeId)
         .then(s => {
-          res.status(200).json({status : 200,data:s,message: "Employee Details"});
+          res.status(200).json({ status: 200, data: s, message: "Employee Details" });
         })
         .catch(e => {
           res.status(e.status).json(e);
         });
     } catch (error) {
-      next({status:404,data:null,message:error});
+      next({ status: 404, data: null, message: error });
     }
   };
 
@@ -34,13 +34,13 @@ class staffManagementController{
       this.employeeServicee
         .updateEmployee(phoneNumber, employeeId, transaction)
         .then(s => {
-          res.status(200).json({status:200,data:s,message:"Updated Employees Data..!!"});
+          res.status(200).json({ status: 200, data: s, message: "Updated Employees Data..!!" });
         })
         .catch(e => {
           res.status(e.status).json(e);
         });
     } catch (e) {
-      next({status:404,data:null,message:e});
+      next({ status: 404, data: null, message: e });
     }
   };
 
@@ -52,13 +52,13 @@ class staffManagementController{
       this.employeeServicee
         .deleteEmployee(phoneNumber, employeeId)
         .then(data => {
-          res.status(200).json({status:200,data:data,message:"Employee Data is Deleted"});
+          res.status(200).json({ status: 200, data: data, message: "Employee Data is Deleted" });
         })
         .catch(e => {
           next(e);
         });
     } catch (e) {
-      next({status:404,data:null,message:e});
+      next({ status: 404, data: null, message: e });
     }
   };
 
@@ -71,13 +71,13 @@ class staffManagementController{
       this.employeeServicee
         .createEmployee(phoneNumber, employee)
         .then(s => {
-          res.status(200).json({status:200,data:s,message:"Employee is Created"});
+          res.status(200).json({ status: 200, data: s, message: "Employee is Created" });
         })
         .catch(e => {
           res.status(e.status).json(e);
         });
     } catch (e) {
-      next({status:404,data:null,message:e});
+      next({ status: 404, data: null, message: e });
     }
   };
 }

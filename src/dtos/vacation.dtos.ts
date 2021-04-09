@@ -1,13 +1,13 @@
-import {IsString , IsNumber} from 'class-validator';
+import { IsString } from 'class-validator';
 
 
 export class VacationDto {
     @IsString()
-    public period : string;
+    public period: string;
     @IsString()
-    public startDate : string;
+    public startDate: string;
     @IsString()
-    public endDate : string;
+    public endDate: string;
     @IsString()
-    public status : string;
+    public status: string;
 }
