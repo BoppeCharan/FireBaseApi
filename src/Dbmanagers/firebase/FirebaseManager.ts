@@ -19,7 +19,7 @@ class FirebaseManager {
   constructor() {
     firebase.default.initializeApp({
       databaseURL: this.dbURL,
-      serviceAccount: './permissions.json'
+      serviceAccount: './bigbusinessFirebaseDev100.json'
     });
     this.db = firebase.default.database();
     this.StaffManagementRef = this.db.ref('Users');
