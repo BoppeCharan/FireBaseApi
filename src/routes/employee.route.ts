@@ -31,7 +31,7 @@ class staffManagementRoute implements Route {
       validationMiddleware(EmployeeDto, 'body', true),
       this.staffManagementController.updateEmployees,
     );
-    this.router.put(`${this.path}/:phoneNumber(\\d+)/:employeeId/vacation`, this.vacationController.updateVacation);
+    // this.router.put(`${this.path}/:phoneNumber(\\d+)/:employeeId/vacation`, this.vacationController.updateVacation);
     this.router.delete(`${this.path}/:phoneNumber(\\d+)/:employeeId`, this.staffManagementController.deleteEmployee);
     this.router.delete(`${this.path}/:phoneNumber(\\d+)/:employeeId/vacation`, this.vacationController.deleteVacation);
   }

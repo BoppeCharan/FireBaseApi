@@ -1,18 +1,19 @@
-import fb from 'firebase';
+/// <reference lib="dom" />
+import * as fb from 'firebase';
 import { VacationDto } from '../../dtos/vacation.dtos';
 
 class VacationFirebaseManager {
 
   private dbURL: string = process.env.DB_URL;
-  private db: fb.database.Database;
-  private VacationRef: fb.database.Reference;
+  private db: fb.default.database.Database;
+  private VacationRef: fb.default.database.Reference;
   private section: string = "Staff-Management";
   private section2: string = "vacation";
 
 
 
   constructor() {
-    this.db = fb.database();
+    this.db = fb.default.database();
     this.VacationRef = this.db.ref('Users');
   }
 
@@ -23,6 +24,7 @@ class VacationFirebaseManager {
         if (snapshot.val() == null) {
           var error = {
             status: 404,
+            data: null,
             message: 'No Employee Vacation Data Found',
           };
           reject(error);
@@ -36,6 +38,7 @@ class VacationFirebaseManager {
             } else {
               var error = {
                 status: 404,
+                data: null,
                 message: 'invalid Employee id',
               };
               reject(error);
@@ -43,6 +46,7 @@ class VacationFirebaseManager {
           } else {
             var error = {
               status: 404,
+              data: null,
               message: 'No data found to update',
             };
             reject(error);
@@ -52,13 +56,14 @@ class VacationFirebaseManager {
     })
   }
 
-  getVacation(phoneNumber: string, id: string): Promise<fb.database.DataSnapshot> {
-    return new Promise<fb.database.DataSnapshot>((resolve, reject) => {
+  getVacation(phoneNumber: string, id: string): Promise<fb.default.database.DataSnapshot> {
+    return new Promise<fb.default.database.DataSnapshot>((resolve, reject) => {
       var path = this.VacationRef.child(phoneNumber).child(this.section).child(id).child(this.section2);
       path.once('value', snapshot => {
         if (snapshot.val() == null) {
           var error = {
             status: 403,
+            data: null,
             message: 'No Data Found',
           };
           reject(error);
@@ -107,7 +112,7 @@ class VacationFirebaseManager {
     return new Promise((resolve, reject) => {
       var path = this.VacationRef.child(phoneNumber).child(this.section).child(id).child(this.section2).remove();
       path.then(() => {
-        resolve({ message: 'Employee Vacation removed successfully from the staff management ' + id });
+        resolve({ status: 200, data: null, message: 'Employee Vacation removed successfully from the staff management ' + id });
       })
         .catch(e => {
           reject(e);

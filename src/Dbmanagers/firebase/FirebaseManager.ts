@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import * as firebase from 'firebase';
 import { EmployeeDto } from '../../dtos/employee.dtos';
 
@@ -32,6 +33,7 @@ class FirebaseManager {
         if (snapshot.val() == null) {
           var error = {
             status: 404,
+            data: null,
             message: 'No Employee Data Found',
           };
           reject(error);
@@ -45,6 +47,7 @@ class FirebaseManager {
             } else {
               var error = {
                 status: 404,
+                data: null,
                 message: 'invalid Employee id',
               };
               reject(error);
@@ -52,6 +55,7 @@ class FirebaseManager {
           } else {
             var error = {
               status: 404,
+              data: null,
               message: 'No data found to update',
             };
             reject(error);
@@ -68,6 +72,7 @@ class FirebaseManager {
         if (snapshot.val() == null) {
           var error = {
             status: 403,
+            data: null,
             message: 'No Data Found',
           };
           reject(error);
@@ -118,7 +123,7 @@ class FirebaseManager {
             .child(id)
             .remove()
             .then(() => {
-              resolve({ message: 'Employee removed successfully from the staff management ' + id });
+              resolve({ status: 200, data: null, message: 'Employee removed successfully from the staff management ' + id });
             })
             .catch(e => {
               reject(e);
