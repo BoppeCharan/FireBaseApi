@@ -1,126 +1,266 @@
 tags:
-- name: users
-  description: users API
-
+  - name: Requests
+    description: staff management Api
 paths:
-# [GET] users
-  /users:
+  /{phoneNumber}/staff:
+    # [GET] staffs
     get:
       tags:
-      - users
-      summary: Find All Users
+        - Requests
+      summary: Getting all the staff data
+      parameters:
+        - name: phoneNumber
+          in: path
+          description: Phone number
+          required: true
+          type: integer
       responses:
         200:
-          description: 'OK'
+          description: "OK"
         500:
-          description: 'Server Error'
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description: "Bad request"
 
-# [POST] users
+    # [POST] add staff
     post:
       tags:
-      - users
-      summary: Add User
+        - Requests
+      summary: Adding staff
       parameters:
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
+        - name: phoneNumber
+          in: path
+          description: Phone number
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: staff Data
+          required: true
+          schema:
+            $ref: "#/definitions/staff"
       responses:
-        201:
-          description: 'Created'
-        400:
-          description: 'Bad Request'
-        409:
-          description: 'Conflict'
+        200:
+          description: "OK"
         500:
-          description: 'Server Error'
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description: "Bad request"
 
-# [GET] users/id
-  /users/{id}:
+  /{phoneNumber}/staff/{employeeId}:
+    # [GET] staff by id
     get:
       tags:
-      - users
-      summary: Find User By Id
+        - Requests
+      summary: Getting the staff by id
       parameters:
-      - name: id
-        in: path
-        description: User Id
-        required: true
-        type: integer
+        - name: phoneNumber
+          in: path
+          description: Phone number
+          required: true
+          type: integer
+        - name: id
+          in: path
+          description: staff id
+          required: true
+          type: string
       responses:
         200:
-          description: 'OK'
-        409:
-          description: 'Conflict'
+          description: "OK"
         500:
-          description: 'Server Error'
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description: "Bad request"
 
-# [PUT] users/id
+    # [PUT] update staff by id
     put:
       tags:
-      - users
-      summary: Update User By Id
+        - Requests
+      summary: Updating staff using id
       parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
-        type: integer
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
+        - name: phoneNumber
+          in: path
+          description: phone number
+          required: true
+          type: integer
+        - name: id
+          in: path
+          description: unique id of staff
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: staff data to update
+          required: true
+          type: string
+          schema:
+            $ref: "#/definitions/staff"
       responses:
         200:
-          description: 'OK'
-        400:
-          description: 'Bad Request'
-        409:
-          description: 'Conflict'
+          description: "OK"
         500:
-          description: 'Server Error'
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description:
+            "Bad request"
 
-# [DELETE] users/id
+    # [POST] add vacation
+    post:
+      tags:
+        - Requests
+      summary: Adding staff
+      parameters:
+        - name: phoneNumber
+          in: path
+          description: Phone number
+          required: true
+          type: integer
+        - name: employeeId
+          in: path
+          description: Employee id
+          required: true
+          type: integer
+        - name: body
+          in: body
+          description: staff Data
+          required: true
+          schema:
+            $ref: "#/definitions/staff"
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description: "Bad request"
+
+    # [DELETE] delete staff by id
     delete:
       tags:
-      - users
-      summary: Delete User By Id
+        - Requests
+      summary: Deleting staff using id
       parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
-        type: integer
+        - name: phoneNumber
+          in: path
+          description: phone number
+          required: true
+          type: integer
+        - name: id
+          in: path
+          description: unique id of staff
+          required: true
+          type: string
       responses:
         200:
-          description: 'OK'
-        409:
-          description: 'Conflict'
+          description: "OK"
         500:
-          description: 'Server Error'
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description: "Bad request"
+
+  /{phoneNumber}/staff/{employeeId}/vacation:
+
+    # [GET] vacation by id
+    get:
+      tags:
+        - Requests
+      summary: Getting the vacation by id
+      parameters:
+        - name: phoneNumber
+          in: path
+          description: Phone number
+          required: true
+          type: integer
+        - name: employeeId
+          in: path
+          description: staff id
+          required: true
+          type: string
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description: "Bad request"
+
+
+
+
+   # [DELETE] delete vacation by id
+    delete:
+      tags:
+        - Requests
+      summary: Deleting vacation using id
+      parameters:
+        - name: phoneNumber
+          in: path
+          description: phone number
+          required: true
+          type: integer
+        - name: id
+          in: path
+          description: unique id of staff
+          required: true
+          type: string
+      responses:
+        200:
+          description: "OK"
+        500:
+          description: "Server Error"
+        404:
+          description: "Not Found"
+        400:
+          description: "Bad request"
+
 
 # definitions
 definitions:
-  users:
+  staff:
     type: object
     required:
-        - email
-        - password
-    properties:
-      id:
-        type: integer
-        description: user Id
-      email:
-        type: string
-        description: user Email
-      password:
-        type: string
-        description: user Password
+      - name
+      - age
+      - phoneNumber
+      - joiningDate
+      - designation
+      - emailId
+      - status
+      - emp_id
 
-schemes:
- - https
- - http
+    properties:
+      name:
+        type: string
+        description:
+      age:
+        type: string
+        description:
+      phoneNumber:
+        type: string
+        description:
+      joiningDate:
+        type: integer
+        description:
+      designation:
+        type: string
+        description:
+      emailId:
+        type: string
+        description:
+      status:
+        type: string
+        description:
