@@ -1,6 +1,5 @@
 import { PaymentDetails } from './paymentDetails.interface'
 export interface Employee {
-	emp_id: string;
 	name: string;
 	age: string;
 	phoneNumber: number;

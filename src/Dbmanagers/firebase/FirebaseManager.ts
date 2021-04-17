@@ -6,8 +6,8 @@ class FirebaseManager {
   private dbURL: string = process.env.DB_URL;
   private db: firebase.default.database.Database;
   private StaffManagementRef: firebase.default.database.Reference;
-  private section: string = "Staff-Management";
-  private section2: string = "vacation";
+  private section: string = 'Staff-Management';
+  private section2: string = 'vacation';
   private static _instance: FirebaseManager;
 
   public static get Instance() {
@@ -15,16 +15,14 @@ class FirebaseManager {
     return this._instance || (this._instance = new this());
   }
 
-
   constructor() {
     firebase.default.initializeApp({
       databaseURL: this.dbURL,
-      serviceAccount: './bigbusinessFirebaseDev100.json'
+      serviceAccount: './bigbusinessFirebaseDev100.json',
     });
     this.db = firebase.default.database();
     this.StaffManagementRef = this.db.ref('Users');
   }
-
 
   private validateStaffManagementId(phoneNumber: string, id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -33,62 +31,84 @@ class FirebaseManager {
         if (snapshot.val() == null) {
           var error = {
             status: 404,
-            data: null,
+            data: {},
             message: 'No Employee Data Found',
           };
           reject(error);
-        }
-
-        else {
+        } else {
           var ths = Object.keys(snapshot.toJSON());
           if (ths.length) {
             if (ths.includes(id)) {
               resolve(true);
             } else {
-              var error = {
+              var er = {
                 status: 404,
-                data: null,
+                data: {},
                 message: 'invalid Employee id',
               };
-              reject(error);
+              reject(er);
             }
           } else {
-            var error = {
+            var e = {
               status: 404,
-              data: null,
+              data: {},
               message: 'No data found to update',
             };
-            reject(error);
+            reject(e);
           }
-        }
-      })
-    })
-  }
-
-  getEmployee(phoneNumber: string, id?: string): Promise<firebase.default.database.DataSnapshot> {
-    return new Promise<firebase.default.database.DataSnapshot>((resolve, reject) => {
-      var path = id ? this.StaffManagementRef.child(phoneNumber).child(this.section).child(id) : this.StaffManagementRef.child(phoneNumber).child(this.section);
-      path.once('value', snapshot => {
-        if (snapshot.val() == null) {
-          var error = {
-            status: 403,
-            data: null,
-            message: 'No Data Found',
-          };
-          reject(error);
-        }
-        else {
-          resolve(snapshot);
         }
       });
     });
   }
 
-  createEmployee(phoneNumber: string, data: EmployeeDto, id: string): Promise<EmployeeDto> {
-    return new Promise<EmployeeDto>((resolve, reject) => {
-      var path = this.StaffManagementRef.child(phoneNumber).child(this.section).child(id).set(data)
-        .then(() => {
-          resolve(data);
+  getEmployee(phoneNumber: string, id?: string): Promise<object> {
+    return new Promise<object>((resolve, reject) => {
+      var path = id
+        ? this.StaffManagementRef.child(phoneNumber).child(this.section).child(id)
+        : this.StaffManagementRef.child(phoneNumber).child(this.section);
+      path.once('value', snapshot => {
+        if (snapshot.val() == null) {
+          var error = {
+            status: 403,
+            data: {},
+            message: 'No Data Found',
+          };
+          reject(error);
+        } else {
+          var respo = {
+            status: 200,
+            message: 'Successful',
+            data: snapshot.val(),
+          };
+          resolve(respo);
+        }
+      });
+    });
+  }
+
+  createEmployee(phoneNumber: string, data: EmployeeDto, id: string): Promise<object> {
+    return new Promise<object>((resolve, reject) => {
+      var path = this.StaffManagementRef.child(phoneNumber)
+        .child(this.section)
+        .child(id)
+        .push(data)
+        .then(s => {
+          data['id'] = s.key.toString();
+          this.StaffManagementRef.child(phoneNumber)
+            .child(this.section)
+            .child(s.key.toString())
+            .update(data)
+            .then(() => {
+              var respo = {
+                status: 200,
+                message: 'Added successfully',
+                data: data,
+              };
+              resolve(respo);
+            })
+            .catch(e => {
+              reject(e);
+            });
         })
         .catch(e => {
           reject(e);
@@ -96,13 +116,21 @@ class FirebaseManager {
     });
   }
 
-  updateEmployee(phoneNumber: string, data: EmployeeDto, id: string): Promise<EmployeeDto> {
-    return new Promise<EmployeeDto>((resolve, reject) => {
+  updateEmployee(phoneNumber: string, data: EmployeeDto, id: string): Promise<object> {
+    return new Promise<object>((resolve, reject) => {
       this.validateStaffManagementId(phoneNumber, id)
         .then(() => {
-          this.createEmployee(phoneNumber, data, id)
-            .then(s => {
-              resolve(s);
+          this.StaffManagementRef.child(phoneNumber)
+            .child(this.section)
+            .child(id)
+            .update(data)
+            .then(() => {
+              var respo = {
+                status: 200,
+                message: 'Successfully updated',
+                data: data,
+              };
+              resolve(respo);
             })
             .catch(e => {
               reject(e);
@@ -123,7 +151,11 @@ class FirebaseManager {
             .child(id)
             .remove()
             .then(() => {
-              resolve({ status: 200, data: null, message: 'Employee removed successfully from the staff management ' + id });
+              resolve({
+                status: 200,
+                data: {},
+                message: 'Employee removed successfully from the staff management ' + id,
+              });
             })
             .catch(e => {
               reject(e);

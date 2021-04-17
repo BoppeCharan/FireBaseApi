@@ -3,8 +3,6 @@ import { PaymentDetailsDto } from './paymentDetails.dtos';
 
 export class EmployeeDto {
 	@IsString()
-	public emp_id: string;
-	@IsString()
 	public name: string;
 	@IsString()
 	public age: string;
@@ -18,6 +16,4 @@ export class EmployeeDto {
 	public emailId: string;
 	@IsString()
 	public status: string;
-
-
 }
