@@ -8,4 +8,5 @@ export interface Employee {
 	emailId: string;
 	PaymentDetails: PaymentDetails;
 	status: string;
+	address: string;
 }

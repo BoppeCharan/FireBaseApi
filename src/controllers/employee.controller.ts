@@ -29,7 +29,7 @@ class staffManagementController {
     try {
       const phoneNumber = req.params.phoneNumber;
       const employeeId = req.params.emp_id;
-      const transaction: Employee = req.body;
+      const transaction: EmployeeDto = req.body;
 
       this.employeeServicee
         .updateEmployee(phoneNumber, employeeId, transaction)

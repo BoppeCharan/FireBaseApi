@@ -2,9 +2,15 @@ import { RequestHandler } from 'express';
 import Joi from 'joi';
 
 const schema = Joi.object({
-  name: Joi.string().required(),
+  emp_id: Joi.string().required(),
+
+  firstName: Joi.string().required(),
+
+  surname: Joi.string().required(),
 
   age: Joi.string().required(),
+
+  gender: Joi.string().required(),
 
   phoneNumber: Joi.number().integer().required(),
 
@@ -15,6 +21,17 @@ const schema = Joi.object({
   emailId: Joi.string().required(),
 
   status: Joi.string().required(),
+
+  address: Joi.string().required(),
+
+  bankDetails: Joi.object().required(),
+
+  employeeRole: Joi.string().required(),
+
+  salary: Joi.string().required(),
+
+  skills: Joi.string().required(),
+
 });
 
 const transactionMiddleWare = (): RequestHandler => {

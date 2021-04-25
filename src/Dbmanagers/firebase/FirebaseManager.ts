@@ -80,7 +80,8 @@ class FirebaseManager {
             message: 'Successful',
             data: snapshot.val(),
           };
-          resolve(respo);
+         // resolve(respo);
+         resolve(snapshot.val());
         }
       });
     });
@@ -93,18 +94,19 @@ class FirebaseManager {
         .child(id)
         .push(data)
         .then(s => {
-          data['id'] = s.key.toString();
+         // data['id'] = s.key.toString();
           this.StaffManagementRef.child(phoneNumber)
             .child(this.section)
-            .child(s.key.toString())
-            .update(data)
+            .child(id)
+            .set(data)
             .then(() => {
               var respo = {
                 status: 200,
                 message: 'Added successfully',
                 data: data,
               };
-              resolve(respo);
+           //   resolve(respo);
+              resolve(data);
             })
             .catch(e => {
               reject(e);
@@ -130,7 +132,8 @@ class FirebaseManager {
                 message: 'Successfully updated',
                 data: data,
               };
-              resolve(respo);
+             // resolve(respo);
+             resolve(data);
             })
             .catch(e => {
               reject(e);
@@ -151,11 +154,12 @@ class FirebaseManager {
             .child(id)
             .remove()
             .then(() => {
-              resolve({
-                status: 200,
-                data: {},
-                message: 'Employee removed successfully from the staff management ' + id,
-              });
+              // resolve({
+              //   status: 200,
+              //   data: {},
+              //   message: 'Employee removed successfully from the staff management ' + id,
+              // });
+              resolve( { message: 'Employee removed successfully from the staff management '+ id });
             })
             .catch(e => {
               reject(e);
