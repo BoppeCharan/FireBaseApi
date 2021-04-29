@@ -12,7 +12,7 @@ const schema = Joi.object({
 
   gender: Joi.string().required(),
 
-  phoneNumber: Joi.number().integer().required(),
+  phoneNumber: Joi.string().required(),
 
   joiningDate: Joi.string().required(),
 

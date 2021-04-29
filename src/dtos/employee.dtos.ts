@@ -9,7 +9,7 @@ export class EmployeeDto {
 	@IsString()
 	public age: string;
 	@IsNumber()
-	public phoneNumber: number;
+	public phoneNumber: string;
 	@IsString()
 	public joiningDate: string;
 	@IsString()

@@ -6,7 +6,6 @@ export interface Employee {
 	joiningDate: string;
 	designation: string;
 	emailId: string;
-	PaymentDetails: PaymentDetails;
 	status: string;
 	address: string;
 }
