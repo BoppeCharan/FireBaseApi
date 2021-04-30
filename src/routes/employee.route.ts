@@ -3,7 +3,6 @@ import staffManagementController from '../controllers/employee.controller';
 import { EmployeeDto } from '../dtos/employee.dtos';
 import Route from '../interfaces/routes.interface';
 import validationMiddleware from '../middlewares/validation.middleware';
-import employeeModel from '../models/employee.model';
 import vacationController from '../controllers/vacation.controller';
 import staffMiddleware from '../middlewares/staff.middleware';
 

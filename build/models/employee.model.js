@@ -1,5 +1,5 @@
-import {Employee} from '../interfaces/employee.interface';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // const employeeModel : Employee[] = [
 //     { 
 //         "emp_id" : "101",
@@ -22,6 +22,5 @@ import {Employee} from '../interfaces/employee.interface';
 //         },
 // 	    "status" : "Currently working"
 //     }];
-
-
 // export default employeeModel;
+//# sourceMappingURL=employee.model.js.map

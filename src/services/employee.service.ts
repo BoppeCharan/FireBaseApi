@@ -1,6 +1,5 @@
 import HttpException from '../exceptions/HttpException';
 import { Employee } from '../interfaces/employee.interface';
-import employeeModel from '../models/employee.model';
 import { isEmpty } from 'class-validator';
 import { PaymentDetails } from '../interfaces/paymentDetails.interface';
 import { EmployeeDto } from '../dtos/employee.dtos';
