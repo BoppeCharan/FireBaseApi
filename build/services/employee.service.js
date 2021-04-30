@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const firebaseManager_1 = __importDefault(require("../dbmanagers/firebase/firebaseManager"));
+const FirebaseManager_1 = __importDefault(require("../dbmanagers/firebase/FirebaseManager"));
 class EmployeeService {
     constructor() {
-        this.db = new firebaseManager_1.default();
+        this.db = new FirebaseManager_1.default();
     }
     async createEmployee(phoneNumber, EmployeeData) {
         return new Promise((resolve, reject) => {

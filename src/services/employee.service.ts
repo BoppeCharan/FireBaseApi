@@ -4,7 +4,7 @@ import { isEmpty } from 'class-validator';
 import { PaymentDetails } from '../interfaces/paymentDetails.interface';
 import { EmployeeDto } from '../dtos/employee.dtos';
 import e from 'express';
-import firebase from '../dbmanagers/firebase/firebaseManager';
+import firebase from '../dbmanagers/firebase/FirebaseManager';
 
 class EmployeeService {
   private db = new firebase();

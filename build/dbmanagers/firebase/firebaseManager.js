@@ -185,4 +185,4 @@ class FirebaseManager {
     }
 }
 exports.default = FirebaseManager;
-//# sourceMappingURL=firebaseManager.js.map
+//# sourceMappingURL=FirebaseManager.js.map
