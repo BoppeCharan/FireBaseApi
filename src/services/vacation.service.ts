@@ -1,6 +1,6 @@
 import HttpException from '../exceptions/HttpException';
 import e from 'express';
-import fb from '../dbmanagers/firebase/vacationFirebaseManager';
+import fb from '../Dbmanagers/firebase/vacationFirebaseManager';
 import { VacationDto } from '../dtos/vacation.dtos';
 
 class VacationService {
