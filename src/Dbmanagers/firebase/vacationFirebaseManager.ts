@@ -1,5 +1,6 @@
 /// <reference lib="dom" />
 import * as fb from 'firebase';
+import { string } from 'joi';
 import { VacationDto } from '../../dtos/vacation.dtos';
 
 class VacationFirebaseManager {
@@ -75,21 +76,15 @@ class VacationFirebaseManager {
   }
 
   createEmployeeVacation(phoneNumber: string, data: VacationDto, id: string): Promise<object> {
+    var vacationId = createUniqueId(data.startDate , data.endDate , id);
     return new Promise<object>((resolve, reject) => {
       var path = this.VacationRef.child(phoneNumber)
         .child(this.section)
         .child(this.section2)
         .child(id)
-        .push(data)
-        .then(s => {
-          data['id'] = s.key.toString();
-          this.VacationRef.child(phoneNumber)
-            .child(this.section)
-            .child(this.section2)
-            .child(id)
-            .child(s.key.toString())
-            .update(data)
-            .then(() => {
+        .child(vacationId.toString())
+        .set(data)
+        .then(() => {
               var respo = {
                 status: 200,
                 message: 'Added successfully',
@@ -97,10 +92,6 @@ class VacationFirebaseManager {
               };
               resolve(respo);
             })
-            .catch(e => {
-              reject(e);
-            });
-        })
         .catch(e => {
           reject(e);
         });
@@ -150,6 +141,27 @@ class VacationFirebaseManager {
         });
     });
   }
+}
+
+function createUniqueId(startDate:string , endDate:string , id: string) {
+  var date = new Date(startDate);
+  var date1 = new Date(endDate);
+  
+  var s = date.getDate();
+  console.log(s);
+  
+  var sm = date.getMonth();
+  var sy = date.getFullYear();
+
+  var t = date1.getDate();
+  var tm = date1.getMonth(); 
+  var ty = date1.getFullYear();
+
+  var uniqueId: string = `${s}${sm}${sy}-${t}${tm}${ty}-${id}` ;
+  console.log(uniqueId);
+  
+
+  return uniqueId;
 }
 
 export default VacationFirebaseManager;

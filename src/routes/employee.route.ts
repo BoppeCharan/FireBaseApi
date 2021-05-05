@@ -19,7 +19,7 @@ class staffManagementRoute implements Route {
 
   private initializeRoutes() {
     this.router.get(`${this.path}/:employeeId?`, this.staffManagementController.getEmployees);
-    this.router.get(`${this.path2}`, this.vacationController.getVacations);
+    this.router.get(`${this.path2}/:employeeId?`, this.vacationController.getVacations);
     this.router.post(`${this.path}`, staffMiddleware(), validationMiddleware(EmployeeDto, 'body'), this.staffManagementController.addEmployee);
     this.router.post(`${this.path2}/:employeeId`, this.vacationController.addVacation);
     this.router.put(
