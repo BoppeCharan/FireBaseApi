@@ -22,10 +22,10 @@ class EmployeeService {
     });
   }
 
-  public async readEmployeeData(phoneNumber: string, id?: string): Promise<any> {
+  public async readEmployeeData(phoneNumber: string, empId?: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .getEmployee(phoneNumber, id)
+        .getEmployee(phoneNumber, empId)
         .then(s => {
           resolve(s);
         })
@@ -35,10 +35,10 @@ class EmployeeService {
     });
   }
 
-  public async updateEmployee(phoneNumber: string, id: string, EmployeeData: EmployeeDto): Promise<any> {
+  public async updateEmployee(phoneNumber: string, empId: string, EmployeeData: EmployeeDto): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .updateEmployee(phoneNumber, EmployeeData, id)
+        .updateEmployee(phoneNumber, EmployeeData, empId)
         .then(s => {
           resolve(s);
         })
@@ -48,10 +48,10 @@ class EmployeeService {
     });
   }
 
-  public async deleteEmployee(phoneNumber: string, id: string): Promise<any> {
+  public async deleteEmployee(phoneNumber: string, empId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .deleteEmployee(phoneNumber, id)
+        .deleteEmployee(phoneNumber, empId)
         .then(s => {
           resolve(s);
         })

@@ -29,7 +29,7 @@ class VacationFirebaseManager {
         this.db = fb.default.database();
         this.VacationRef = this.db.ref('Users');
     }
-    validateStaffManagementId(phoneNumber, id) {
+    validateStaffManagementId(phoneNumber, empId) {
         return new Promise((resolve, reject) => {
             var path = this.VacationRef.child(phoneNumber).child(this.section).child(this.section2);
             path.once('value', snapshot => {
@@ -44,7 +44,7 @@ class VacationFirebaseManager {
                 else {
                     var ths = Object.keys(snapshot.toJSON());
                     if (ths.length) {
-                        if (ths.includes(id)) {
+                        if (ths.includes(empId)) {
                             resolve(true);
                         }
                         else {
@@ -68,7 +68,7 @@ class VacationFirebaseManager {
             });
         });
     }
-    getVacation(phoneNumber, id) {
+    getVacation(phoneNumber, empId) {
         return new Promise((resolve, reject) => {
             var path = this.VacationRef.child(phoneNumber).child(this.section).child(this.section2);
             path.once('value', snapshot => {
@@ -91,12 +91,14 @@ class VacationFirebaseManager {
             });
         });
     }
-    createEmployeeVacation(phoneNumber, data, id) {
+    createEmployeeVacation(phoneNumber, data, empId) {
+        var vacationId = createUniqueId(data.startDate, data.endDate, empId);
         return new Promise((resolve, reject) => {
             var path = this.VacationRef.child(phoneNumber)
                 .child(this.section)
                 .child(this.section2)
-                .child(id)
+                .child(empId)
+                .child(vacationId.toString())
                 .set(data)
                 .then(() => {
                 var respo = {
@@ -111,13 +113,15 @@ class VacationFirebaseManager {
             });
         });
     }
-    updateVacation(phoneNumber, data, id) {
+    updateVacation(phoneNumber, data, empId, vacationId) {
         return new Promise((resolve, reject) => {
-            this.validateStaffManagementId(phoneNumber, id)
+            this.validateStaffManagementId(phoneNumber, empId)
                 .then(() => {
                 this.VacationRef.child(phoneNumber)
                     .child(this.section)
                     .child(this.section2)
+                    .child(empId)
+                    .child(vacationId)
                     .update(data)
                     .then(() => {
                     var respo = {
@@ -136,15 +140,15 @@ class VacationFirebaseManager {
             });
         });
     }
-    deleteVacation(phoneNumber, id) {
+    deleteVacation(phoneNumber, empId, vacationId) {
         return new Promise((resolve, reject) => {
-            var path = this.VacationRef.child(phoneNumber).child(this.section).child(this.section2).remove();
+            var path = this.VacationRef.child(phoneNumber).child(this.section).child(this.section2).child(empId).child(vacationId).remove();
             path
                 .then(() => {
                 resolve({
                     status: 200,
                     data: {},
-                    message: 'Employee Vacation removed successfully from the staff management ' + id,
+                    message: 'Employee Vacation removed successfully from the staff management ' + empId,
                 });
             })
                 .catch(e => {
@@ -152,6 +156,18 @@ class VacationFirebaseManager {
             });
         });
     }
+}
+function createUniqueId(startDate, endDate, empId) {
+    var start_date = new Date(startDate);
+    var end_date = new Date(endDate);
+    var startDay = start_date.getDate();
+    var startMonth = start_date.getMonth() + 1;
+    var startYear = start_date.getFullYear();
+    var endDay = end_date.getDate();
+    var endMonth = end_date.getMonth() + 1;
+    var endYear = end_date.getFullYear();
+    var uniqueId = `${startDay}${startMonth}${startYear}-${endDay}${endMonth}${endYear}-${empId}`;
+    return uniqueId;
 }
 exports.default = VacationFirebaseManager;
 //# sourceMappingURL=vacationFirebaseManager.js.map

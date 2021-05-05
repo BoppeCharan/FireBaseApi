@@ -34,10 +34,10 @@ class VacationService {
     });
   }
 
-  public async updateVacation(phoneNumber: string, VacationData: VacationDto, id: string): Promise<any> {
+  public async updateVacation(phoneNumber: string, VacationData: VacationDto, empId: string, vacationId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .updateVacation(phoneNumber, VacationData, id)
+        .updateVacation(phoneNumber, VacationData, empId, vacationId)
         .then(s => {
           resolve(s);
         })

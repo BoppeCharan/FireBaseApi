@@ -32,10 +32,10 @@ class VacationService {
             });
         });
     }
-    async updateVacation(phoneNumber, VacationData, id) {
+    async updateVacation(phoneNumber, VacationData, empId, vacationId) {
         return new Promise((resolve, reject) => {
             this.db
-                .updateVacation(phoneNumber, VacationData, id)
+                .updateVacation(phoneNumber, VacationData, empId, vacationId)
                 .then(s => {
                 resolve(s);
             })
@@ -44,10 +44,10 @@ class VacationService {
             });
         });
     }
-    async deleteVacation(phoneNumber, id) {
+    async deleteVacation(phoneNumber, id, vacationId) {
         return new Promise((resolve, reject) => {
             this.db
-                .deleteVacation(phoneNumber, id)
+                .deleteVacation(phoneNumber, id, vacationId)
                 .then(s => {
                 resolve(s);
             })

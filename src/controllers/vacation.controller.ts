@@ -28,11 +28,12 @@ class vacationController {
   public updateVacation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const phoneNumber = req.params.phoneNumber;
-      const employeeId = req.params.emp_id;
+      const employeeId = req.params.employeeId;
       const vacation: VacationDto = req.body;
+      const vacationId = req.params.vacationId;
 
       this.vacationServicee
-        .updateVacation(phoneNumber, vacation, employeeId)
+        .updateVacation(phoneNumber, vacation, employeeId, vacationId)
         .then(s => {
           res.status(200).json(s);
         })
@@ -51,7 +52,7 @@ class vacationController {
       const vacationId = req.params.vacationId;
 
       this.vacationServicee
-        .deleteVacation(phoneNumber, employeeId , vacationId)
+        .deleteVacation(phoneNumber, employeeId, vacationId)
         .then(data => {
           res.status(200).json(data);
         })

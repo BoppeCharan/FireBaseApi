@@ -20,10 +20,10 @@ class EmployeeService {
             });
         });
     }
-    async readEmployeeData(phoneNumber, id) {
+    async readEmployeeData(phoneNumber, empId) {
         return new Promise((resolve, reject) => {
             this.db
-                .getEmployee(phoneNumber, id)
+                .getEmployee(phoneNumber, empId)
                 .then(s => {
                 resolve(s);
             })
@@ -32,10 +32,10 @@ class EmployeeService {
             });
         });
     }
-    async updateEmployee(phoneNumber, id, EmployeeData) {
+    async updateEmployee(phoneNumber, empId, EmployeeData) {
         return new Promise((resolve, reject) => {
             this.db
-                .updateEmployee(phoneNumber, EmployeeData, id)
+                .updateEmployee(phoneNumber, EmployeeData, empId)
                 .then(s => {
                 resolve(s);
             })
@@ -44,10 +44,10 @@ class EmployeeService {
             });
         });
     }
-    async deleteEmployee(phoneNumber, id) {
+    async deleteEmployee(phoneNumber, empId) {
         return new Promise((resolve, reject) => {
             this.db
-                .deleteEmployee(phoneNumber, id)
+                .deleteEmployee(phoneNumber, empId)
                 .then(s => {
                 resolve(s);
             })
