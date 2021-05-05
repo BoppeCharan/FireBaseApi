@@ -148,7 +148,6 @@ function createUniqueId(startDate:string , endDate:string , id: string) {
   var date1 = new Date(endDate);
   
   var s = date.getDate();
-  console.log(s);
   
   var sm = date.getMonth();
   var sy = date.getFullYear();
@@ -158,7 +157,6 @@ function createUniqueId(startDate:string , endDate:string , id: string) {
   var ty = date1.getFullYear();
 
   var uniqueId: string = `${s}${sm}${sy}-${t}${tm}${ty}-${id}` ;
-  console.log(uniqueId);
   
 
   return uniqueId;
