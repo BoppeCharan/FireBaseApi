@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const vacationFirebaseManager_1 = __importDefault(require("../dbmanagers/firebase/vacationFirebaseManager"));
+const vacationFirebaseManager_1 = __importDefault(require("../Dbmanagers/firebase/vacationFirebaseManager"));
 class VacationService {
     constructor() {
         this.db = new vacationFirebaseManager_1.default();

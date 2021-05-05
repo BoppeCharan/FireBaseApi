@@ -47,10 +47,10 @@ class VacationService {
     });
   }
 
-  public async deleteVacation(phoneNumber: string, id: string): Promise<any> {
+  public async deleteVacation(phoneNumber: string, id: string , vacationId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .deleteVacation(phoneNumber, id)
+        .deleteVacation(phoneNumber, id , vacationId)
         .then(s => {
           resolve(s);
         })

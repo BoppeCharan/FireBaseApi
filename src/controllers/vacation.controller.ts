@@ -29,7 +29,7 @@ class vacationController {
     try {
       const phoneNumber = req.params.phoneNumber;
       const employeeId = req.params.emp_id;
-      const vacation: vacation = req.body;
+      const vacation: VacationDto = req.body;
 
       this.vacationServicee
         .updateVacation(phoneNumber, vacation, employeeId)
@@ -48,9 +48,10 @@ class vacationController {
     try {
       const phoneNumber = req.params.phoneNumber;
       const employeeId = req.params.employeeId;
+      const vacationId = req.params.vacationId;
 
       this.vacationServicee
-        .deleteVacation(phoneNumber, employeeId)
+        .deleteVacation(phoneNumber, employeeId , vacationId)
         .then(data => {
           res.status(200).json(data);
         })
