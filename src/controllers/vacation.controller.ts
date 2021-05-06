@@ -28,11 +28,12 @@ class vacationController {
   public updateVacation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const phoneNumber = req.params.phoneNumber;
-      const employeeId = req.params.emp_id;
-      const vacation: vacation = req.body;
+      const employeeId = req.params.employeeId;
+      const vacation: VacationDto = req.body;
+      const vacationId = req.params.vacationId;
 
       this.vacationServicee
-        .updateVacation(phoneNumber, vacation, employeeId)
+        .updateVacation(phoneNumber, vacation, employeeId, vacationId)
         .then(s => {
           res.status(200).json(s);
         })
@@ -48,9 +49,10 @@ class vacationController {
     try {
       const phoneNumber = req.params.phoneNumber;
       const employeeId = req.params.employeeId;
+      const vacationId = req.params.vacationId;
 
       this.vacationServicee
-        .deleteVacation(phoneNumber, employeeId)
+        .deleteVacation(phoneNumber, employeeId, vacationId)
         .then(data => {
           res.status(200).json(data);
         })
@@ -67,10 +69,10 @@ class vacationController {
     try {
       const vacation: VacationDto = req.body;
       const phoneNumber = req.params.phoneNumber;
-      const id = req.params.employeeId;
+      const employeeId = req.params.employeeId;
 
       this.vacationServicee
-        .createEmployeeVacation(phoneNumber, vacation, id)
+        .createEmployeeVacation(phoneNumber, vacation, employeeId)
         .then(s => {
           res.status(200).json(s);
         })

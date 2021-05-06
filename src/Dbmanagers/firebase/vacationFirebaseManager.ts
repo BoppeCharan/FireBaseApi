@@ -1,22 +1,23 @@
 /// <reference lib="dom" />
 import * as fb from 'firebase';
+import { string } from 'joi';
 import { VacationDto } from '../../dtos/vacation.dtos';
 
 class VacationFirebaseManager {
   private dbURL: string = process.env.DB_URL;
   private db: fb.default.database.Database;
   private VacationRef: fb.default.database.Reference;
-  private section: string = 'Staff-Management';
-  private section2: string = 'vacation';
+  private staffManagementSection: string = 'Staff-Management';
+  private vacationSection: string = 'vacations';
 
   constructor() {
     this.db = fb.default.database();
     this.VacationRef = this.db.ref('Users');
   }
 
-  private validateStaffManagementId(phoneNumber: string, id: string): Promise<boolean> {
+  private validateStaffManagementId(phoneNumber: string, empId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      var path = this.VacationRef.child(phoneNumber).child(this.section).child(id).child(this.section2);
+      var path = this.VacationRef.child(phoneNumber).child(this.staffManagementSection).child(this.vacationSection);
       path.once('value', snapshot => {
         if (snapshot.val() == null) {
           var error = {
@@ -28,7 +29,7 @@ class VacationFirebaseManager {
         } else {
           var ths = Object.keys(snapshot.toJSON());
           if (ths.length) {
-            if (ths.includes(id)) {
+            if (ths.includes(empId)) {
               resolve(true);
             } else {
               var e = {
@@ -51,9 +52,9 @@ class VacationFirebaseManager {
     });
   }
 
-  getVacation(phoneNumber: string, id: string): Promise<object> {
+  getVacation(phoneNumber: string, empId: string): Promise<object> {
     return new Promise<object>((resolve, reject) => {
-      var path = this.VacationRef.child(phoneNumber).child(this.section).child(id).child(this.section2);
+      var path = this.VacationRef.child(phoneNumber).child(this.staffManagementSection).child(this.vacationSection);
       path.once('value', snapshot => {
         if (snapshot.val() == null) {
           var error = {
@@ -74,30 +75,22 @@ class VacationFirebaseManager {
     });
   }
 
-  createEmployeeVacation(phoneNumber: string, data: VacationDto, id: string): Promise<object> {
+  createEmployeeVacation(phoneNumber: string, data: VacationDto, empId: string): Promise<object> {
+    var vacationId = createUniqueId(data.startDate, data.endDate, empId);
     return new Promise<object>((resolve, reject) => {
       var path = this.VacationRef.child(phoneNumber)
-        .child(this.section)
-        .child(id)
-        .child(this.section2)
-        .push(data)
-        .then(s => {
-          data['id'] = s.key.toString();
-          this.VacationRef.child(phoneNumber)
-            .child(this.section2)
-            .child(s.key.toString())
-            .update(data)
-            .then(() => {
-              var respo = {
-                status: 200,
-                message: 'Added successfully',
-                data: data,
-              };
-              resolve(respo);
-            })
-            .catch(e => {
-              reject(e);
-            });
+        .child(this.staffManagementSection)
+        .child(this.vacationSection)
+        .child(empId)
+        .child(vacationId.toString())
+        .set(data)
+        .then(() => {
+          var respo = {
+            status: 200,
+            message: 'Added successfully',
+            data: data,
+          };
+          resolve(respo);
         })
         .catch(e => {
           reject(e);
@@ -105,14 +98,15 @@ class VacationFirebaseManager {
     });
   }
 
-  updateVacation(phoneNumber: string, data: VacationDto, id: string): Promise<object> {
+  updateVacation(phoneNumber: string, data: VacationDto, empId: string, vacationId: string): Promise<object> {
     return new Promise<object>((resolve, reject) => {
-      this.validateStaffManagementId(phoneNumber, id)
+      this.validateStaffManagementId(phoneNumber, empId)
         .then(() => {
           this.VacationRef.child(phoneNumber)
-            .child(this.section)
-            .child(id)
-            .child(this.section2)
+            .child(this.staffManagementSection)
+            .child(this.vacationSection)
+            .child(empId)
+            .child(vacationId)
             .update(data)
             .then(() => {
               var respo = {
@@ -132,15 +126,15 @@ class VacationFirebaseManager {
     });
   }
 
-  deleteVacation(phoneNumber: string, id: string): Promise<any> {
+  deleteVacation(phoneNumber: string, empId: string, vacationId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      var path = this.VacationRef.child(phoneNumber).child(this.section).child(id).child(this.section2).remove();
+      var path = this.VacationRef.child(phoneNumber).child(this.staffManagementSection).child(this.vacationSection).child(empId).child(vacationId).remove();
       path
         .then(() => {
           resolve({
             status: 200,
             data: {},
-            message: 'Employee Vacation removed successfully from the staff management ' + id,
+            message: 'Employee Vacation removed successfully from the staff management ' + empId,
           });
         })
         .catch(e => {
@@ -148,6 +142,22 @@ class VacationFirebaseManager {
         });
     });
   }
+}
+
+function createUniqueId(startDate: string, endDate: string, empId: string) {
+  var start_date = new Date(startDate);
+  var end_date = new Date(endDate);
+  var startDay = start_date.getDate();
+  var startMonth = start_date.getMonth() + 1;
+  var startYear = start_date.getFullYear();
+  var endDay = end_date.getDate();
+  var endMonth = end_date.getMonth() + 1;
+  var endYear = end_date.getFullYear();
+
+  var uniqueId: string = `${startDay}${startMonth}${startYear}-${endDay}${endMonth}${endYear}-${empId}`;
+
+
+  return uniqueId;
 }
 
 export default VacationFirebaseManager;
