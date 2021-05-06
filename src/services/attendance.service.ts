@@ -8,10 +8,10 @@ class AttendanceService {
   private db = new fb();
 
 
-  public async createAttendance(phoneNumber: string, AttendanceData: AttendanceDto, id: string): Promise<any> {
+  public async createAttendance(phoneNumber: string, AttendanceData: AttendanceDto, empId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .createAttendance(phoneNumber, AttendanceData, id)
+        .createAttendance(phoneNumber, AttendanceData, empId)
         .then(s => {
           resolve(s);
         })
@@ -21,10 +21,10 @@ class AttendanceService {
     });
   }
 
-  public async readAttendanceData(phoneNumber: string, id: string): Promise<any> {
+  public async readAttendanceData(phoneNumber: string, empId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .getAttendanceData(phoneNumber, id)
+        .getAttendanceData(phoneNumber, empId)
         .then(s => {
           resolve(s);
         })

@@ -25,7 +25,7 @@ class AttendanceFirebaseManager {
 
   }
 
-  private validateAttendanceId(phoneNumber: string, id: string): Promise<boolean> {
+  private validateAttendanceId(phoneNumber: string, empId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       var th = this.AttendanceRef.child(phoneNumber).child(this.section);
       th.once('value', snapshot => {
@@ -39,7 +39,7 @@ class AttendanceFirebaseManager {
         } else {
           var ths = Object.keys(snapshot.toJSON());
           if (ths.length) {
-            if (ths.includes(id)) {
+            if (ths.includes(empId)) {
               resolve(true);
             } else {
               var er = {
@@ -62,13 +62,13 @@ class AttendanceFirebaseManager {
     });
   }
 
-  getAttendanceData(phoneNumber: string, id: string): Promise<object> {
+  getAttendanceData(phoneNumber: string, empId: string): Promise<object> {
     return new Promise<object>((resolve, reject) => {
-      var path = this.AttendanceRef.child(phoneNumber).child(this.section).child(id);
+      var path = this.AttendanceRef.child(phoneNumber).child(this.section).child(empId);
       path.once('value', snapshot => {
         if (snapshot.val() == null) {
           var error = {
-            status: 403,
+            status: 404,
             data: {},
             message: 'No Data Found',
           };
@@ -85,13 +85,13 @@ class AttendanceFirebaseManager {
     });
   }
 
-  createAttendance(phoneNumber: string, data: AttendanceDto, id: string,): Promise<object> {
+  createAttendance(phoneNumber: string, data: AttendanceDto, empId: string,): Promise<object> {
     return new Promise<object>((resolve, reject) => {
 
-      this.validateAttendanceId(phoneNumber,id)
+      this.validateAttendanceId(phoneNumber,empId)
       .then(() => {
       var str = this.createUniqueId(data.date);
-      var path = this.AttendanceRef.child(phoneNumber).child(this.section).child(id).child(str).set(data)
+      var path = this.AttendanceRef.child(phoneNumber).child(this.section).child(empId).child(str).set(data)
       .then(() => {
         resolve(data);
       })

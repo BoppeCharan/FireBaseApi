@@ -70,12 +70,12 @@ class AttendanceController {
 
   public addAttendance = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const vacation: AttendanceDto = req.body;
+      const attendance: AttendanceDto = req.body;
       const phoneNumber = req.params.phoneNumber;
-      const id = req.params.employeeId;
+      const empId = req.params.employeeId;
 
       this.attendanceService
-        .createAttendance(phoneNumber, vacation, id)
+        .createAttendance(phoneNumber, attendance, empId)
         .then(s => {
           res.status(200).json({status:200,data:s,message:"The Data is Added"});
         })
