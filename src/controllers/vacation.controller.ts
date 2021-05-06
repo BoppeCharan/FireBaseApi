@@ -69,10 +69,10 @@ class vacationController {
     try {
       const vacation: VacationDto = req.body;
       const phoneNumber = req.params.phoneNumber;
-      const id = req.params.employeeId;
+      const employeeId = req.params.employeeId;
 
       this.vacationServicee
-        .createEmployeeVacation(phoneNumber, vacation, id)
+        .createEmployeeVacation(phoneNumber, vacation, employeeId)
         .then(s => {
           res.status(200).json(s);
         })
