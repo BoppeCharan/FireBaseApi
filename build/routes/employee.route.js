@@ -11,22 +11,23 @@ const vacation_controller_1 = __importDefault(require("../controllers/vacation.c
 const staff_middleware_1 = __importDefault(require("../middlewares/staff.middleware"));
 class staffManagementRoute {
     constructor() {
-        this.path = '/:phoneNumber(\\d+)/employee';
+        this.employeePath = '/:phoneNumber(\\d+)/employee';
+        this.vacationPath = '/:phoneNumber(\\d+)/vacations';
         this.router = express_1.Router();
         this.staffManagementController = new employee_controller_1.default();
         this.vacationController = new vacation_controller_1.default();
         this.initializeRoutes();
     }
     initializeRoutes() {
-        this.router.get(`${this.path}/:employeeId?`, this.staffManagementController.getEmployees);
-        this.router.get(`${this.path}/:employeeId/vacation`, this.vacationController.getVacations);
-        this.router.post(`${this.path}`, staff_middleware_1.default(), validation_middleware_1.default(employee_dtos_1.EmployeeDto, 'body'), this.staffManagementController.addEmployee);
-        this.router.post(`${this.path}/:employeeId`, this.vacationController.addVacation);
-        this.router.put(`${this.path}/:emp_id`, staff_middleware_1.default(), validation_middleware_1.default(employee_dtos_1.EmployeeDto, 'body', true), this.staffManagementController.updateEmployees);
-        // this.router.put(`${this.path}/:phoneNumber(\\d+)/:employeeId/vacation`, this.vacationController.updateVacation);
-        this.router.delete(`${this.path}/:employeeId`, this.staffManagementController.deleteEmployee);
-        this.router.delete(`${this.path}/:employeeId/vacation`, this.vacationController.deleteVacation);
-        this.router.use(`${this.path}`, (req, res) => {
+        this.router.get(`${this.employeePath}/:employeeId?`, this.staffManagementController.getEmployees);
+        this.router.get(`${this.vacationPath}/:employeeId?`, this.vacationController.getVacations);
+        this.router.post(`${this.employeePath}`, staff_middleware_1.default(), validation_middleware_1.default(employee_dtos_1.EmployeeDto, 'body'), this.staffManagementController.addEmployee);
+        this.router.post(`${this.vacationPath}/:employeeId`, this.vacationController.addVacation);
+        this.router.put(`${this.employeePath}/:emp_id`, staff_middleware_1.default(), validation_middleware_1.default(employee_dtos_1.EmployeeDto, 'body', true), this.staffManagementController.updateEmployees);
+        this.router.put(`${this.vacationPath}/:employeeId/:vacationId`, this.vacationController.updateVacation);
+        this.router.delete(`${this.employeePath}/:employeeId`, this.staffManagementController.deleteEmployee);
+        this.router.delete(`${this.vacationPath}/:employeeId/:vacationId`, this.vacationController.deleteVacation);
+        this.router.use(`${this.employeePath}`, (req, res) => {
             var methods = ['GET', 'POST', 'PUT', 'DELETE'];
             if (methods.includes(req.method)) {
                 res.status(400).json({

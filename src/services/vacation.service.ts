@@ -8,10 +8,10 @@ class VacationService {
   private db = new fb();
 
 
-  public async createEmployeeVacation(phoneNumber: string, VacationData: VacationDto, id: string): Promise<any> {
+  public async createEmployeeVacation(phoneNumber: string, VacationData: VacationDto, empId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .createEmployeeVacation(phoneNumber, VacationData, id)
+        .createEmployeeVacation(phoneNumber, VacationData, empId)
         .then(s => {
           resolve(s);
         })
@@ -21,10 +21,10 @@ class VacationService {
     });
   }
 
-  public async readVacationData(phoneNumber: string, id: string): Promise<any> {
+  public async readVacationData(phoneNumber: string, empId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .getVacation(phoneNumber, id)
+        .getVacation(phoneNumber, empId)
         .then(s => {
           resolve(s);
         })
@@ -34,10 +34,10 @@ class VacationService {
     });
   }
 
-  public async updateVacation(phoneNumber: string, VacationData: VacationDto, id: string): Promise<any> {
+  public async updateVacation(phoneNumber: string, VacationData: VacationDto, empId: string, vacationId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .updateVacation(phoneNumber, VacationData, id)
+        .updateVacation(phoneNumber, VacationData, empId, vacationId)
         .then(s => {
           resolve(s);
         })
@@ -47,10 +47,10 @@ class VacationService {
     });
   }
 
-  public async deleteVacation(phoneNumber: string, id: string): Promise<any> {
+  public async deleteVacation(phoneNumber: string, empId: string , vacationId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db
-        .deleteVacation(phoneNumber, id)
+        .deleteVacation(phoneNumber, empId , vacationId)
         .then(s => {
           resolve(s);
         })

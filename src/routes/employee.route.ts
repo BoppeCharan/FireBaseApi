@@ -10,8 +10,8 @@ import AttendanceController from '../controllers/attendance.controller';
 import { from } from 'rxjs';
 
 class staffManagementRoute implements Route {
-  public path = '/:phoneNumber(\\d+)/employee';
-  public path1 = '/:phoneNumber(\\d+)/attendance';
+  public employeePath = '/:phoneNumber(\\d+)/employee';
+  public vacationPath = '/:phoneNumber(\\d+)/vacations';
   public router = Router();
   public staffManagementController = new staffManagementController();
   public vacationController = new vacationController();
@@ -22,28 +22,20 @@ class staffManagementRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:employeeId?`, this.staffManagementController.getEmployees);
-    this.router.get(`${this.path}/:employeeId/vacation`, this.vacationController.getVacations);
-    this.router.get(`${this.path1}/:employeeId`,this.attendanceController.getAttendances);
-    this.router.post(`${this.path1}/:employeeId`,validationMiddleware(AttendanceDto, 'body'),this.attendanceController.addAttendance);
-    this.router.post(`${this.path}`, staffMiddleware(), validationMiddleware(EmployeeDto, 'body'), this.staffManagementController.addEmployee);
-    this.router.post(`${this.path}/:employeeId`, this.vacationController.addVacation);
+    this.router.get(`${this.employeePath}/:employeeId?`, this.staffManagementController.getEmployees);
+    this.router.get(`${this.vacationPath}/:employeeId?`, this.vacationController.getVacations);
+    this.router.post(`${this.employeePath}`, staffMiddleware(), validationMiddleware(EmployeeDto, 'body'), this.staffManagementController.addEmployee);
+    this.router.post(`${this.vacationPath}/:employeeId`, this.vacationController.addVacation);
     this.router.put(
-      `${this.path}/:emp_id`,
+      `${this.employeePath}/:emp_id`,
       staffMiddleware(),
       validationMiddleware(EmployeeDto, 'body', true),
       this.staffManagementController.updateEmployees,
     );
-    this.router.put(
-      `${this.path1}/:employeeId/:id`,
-      validationMiddleware(AttendanceDto, 'body', true),
-      this.attendanceController.updateAttendance,
-    );
-    // this.router.put(`${this.path}/:phoneNumber(\\d+)/:employeeId/vacation`, this.vacationController.updateVacation);
-    this.router.delete(`${this.path}/:employeeId`, this.staffManagementController.deleteEmployee);
-    this.router.delete(`${this.path1}/:employeeId/:id`, this.attendanceController.deleteAttendance);
-    this.router.delete(`${this.path}/:employeeId/vacation`, this.vacationController.deleteVacation);
-    this.router.use(`${this.path}`, (req, res) => {
+    this.router.put(`${this.vacationPath}/:employeeId/:vacationId`, this.vacationController.updateVacation);
+    this.router.delete(`${this.employeePath}/:employeeId`, this.staffManagementController.deleteEmployee);
+    this.router.delete(`${this.vacationPath}/:employeeId/:vacationId`, this.vacationController.deleteVacation);
+    this.router.use(`${this.employeePath}`, (req, res) => {
       var methods = ['GET', 'POST', 'PUT', 'DELETE'];
 
       if (methods.includes(req.method)) {

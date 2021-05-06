@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const vacationFirebaseManager_1 = __importDefault(require("../dbmanagers/firebase/vacationFirebaseManager"));
+const vacationFirebaseManager_1 = __importDefault(require("../Dbmanagers/firebase/vacationFirebaseManager"));
 class VacationService {
     constructor() {
         this.db = new vacationFirebaseManager_1.default();
@@ -32,10 +32,10 @@ class VacationService {
             });
         });
     }
-    async updateVacation(phoneNumber, VacationData, id) {
+    async updateVacation(phoneNumber, VacationData, empId, vacationId) {
         return new Promise((resolve, reject) => {
             this.db
-                .updateVacation(phoneNumber, VacationData, id)
+                .updateVacation(phoneNumber, VacationData, empId, vacationId)
                 .then(s => {
                 resolve(s);
             })
@@ -44,10 +44,10 @@ class VacationService {
             });
         });
     }
-    async deleteVacation(phoneNumber, id) {
+    async deleteVacation(phoneNumber, id, vacationId) {
         return new Promise((resolve, reject) => {
             this.db
-                .deleteVacation(phoneNumber, id)
+                .deleteVacation(phoneNumber, id, vacationId)
                 .then(s => {
                 resolve(s);
             })
