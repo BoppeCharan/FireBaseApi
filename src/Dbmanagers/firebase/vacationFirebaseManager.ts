@@ -16,10 +16,6 @@ class VacationFirebaseManager {
   }
 
   private validateStaffManagementId(phoneNumber: string, empId: string , vacationId: string): Promise<boolean> {
-    console.log(empId);
-    console.log(vacationId);
-    
-    
     return new Promise((resolve, reject) => {
       var path = this.VacationRef.child(phoneNumber).child(this.vacationSection).child(empId);
       path.once('value', snapshot => {

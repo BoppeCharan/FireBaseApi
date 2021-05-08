@@ -5,6 +5,8 @@ import Route from '../interfaces/routes.interface';
 import validationMiddleware from '../middlewares/validation.middleware';
 import vacationController from '../controllers/vacation.controller';
 import staffMiddleware from '../middlewares/staff.middleware';
+import vacationMiddleWare from '../middlewares/vacation.middleware';
+import { VacationDto } from '../dtos/vacation.dtos';
 
 class staffManagementRoute implements Route {
   public employeePath = '/:phoneNumber(\\d+)/employee';
@@ -21,7 +23,7 @@ class staffManagementRoute implements Route {
     this.router.get(`${this.employeePath}/:employeeId?`, this.staffManagementController.getEmployees);
     this.router.get(`${this.vacationPath}/:employeeId?`, this.vacationController.getVacations);
     this.router.post(`${this.employeePath}`, staffMiddleware(), validationMiddleware(EmployeeDto, 'body'), this.staffManagementController.addEmployee);
-    this.router.post(`${this.vacationPath}/:employeeId`, this.vacationController.addVacation);
+    this.router.post(`${this.vacationPath}/:employeeId`,vacationMiddleWare() , validationMiddleware(VacationDto, 'body'), this.vacationController.addVacation);
     this.router.put(
       `${this.employeePath}/:employeeId`,
       staffMiddleware(),
