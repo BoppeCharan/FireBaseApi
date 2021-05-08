@@ -28,7 +28,8 @@ class staffManagementController {
   public updateEmployees = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const phoneNumber = req.params.phoneNumber;
-      const employeeId = req.params.emp_id;
+      const employeeId = req.params.employeeId;
+    
       const transaction: EmployeeDto = req.body;
 
       this.employeeServicee

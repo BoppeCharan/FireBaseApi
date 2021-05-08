@@ -9,5 +9,7 @@ export class VacationDto {
     @IsString()
     public endDate: string;
     @IsString()
+    public reason : string;
+    @IsString()
     public status: string;
 }

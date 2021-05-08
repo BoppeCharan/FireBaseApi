@@ -6,6 +6,8 @@ import Route from '../interfaces/routes.interface';
 import validationMiddleware from '../middlewares/validation.middleware';
 import vacationController from '../controllers/vacation.controller';
 import staffMiddleware from '../middlewares/staff.middleware';
+import vacationMiddleWare from '../middlewares/vacation.middleware';
+import { VacationDto } from '../dtos/vacation.dtos';
 import AttendanceController from '../controllers/attendance.controller';
 import { from } from 'rxjs';
 
@@ -28,9 +30,9 @@ class staffManagementRoute implements Route {
     this.router.get(`${this.attendancePath}/:employeeId`,this.attendanceController.getAttendances);
     this.router.post(`${this.attendancePath}/:employeeId`,validationMiddleware(AttendanceDto, 'body'),this.attendanceController.addAttendance);
     this.router.post(`${this.employeePath}`, staffMiddleware(), validationMiddleware(EmployeeDto, 'body'), this.staffManagementController.addEmployee);
-    this.router.post(`${this.vacationPath}/:employeeId`, this.vacationController.addVacation);
+    this.router.post(`${this.vacationPath}/:employeeId`,vacationMiddleWare() , validationMiddleware(VacationDto, 'body'), this.vacationController.addVacation);
     this.router.put(
-      `${this.employeePath}/:emp_id`,
+      `${this.employeePath}/:employeeId`,
       staffMiddleware(),
       validationMiddleware(EmployeeDto, 'body', true),
       this.staffManagementController.updateEmployees,

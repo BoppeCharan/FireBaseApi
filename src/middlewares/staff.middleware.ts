@@ -34,7 +34,7 @@ const schema = Joi.object({
 
 });
 
-const transactionMiddleWare = (): RequestHandler => {
+const staffMiddleware = (): RequestHandler => {
   return (req, res, next) => {
     if (!req.body) {
       res.status(405).json({
@@ -61,4 +61,4 @@ const transactionMiddleWare = (): RequestHandler => {
   };
 };
 
-export default transactionMiddleWare;
+export default staffMiddleware;
