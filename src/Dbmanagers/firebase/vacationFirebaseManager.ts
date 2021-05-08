@@ -15,9 +15,13 @@ class VacationFirebaseManager {
     this.VacationRef = this.db.ref('Users');
   }
 
-  private validateStaffManagementId(phoneNumber: string, empId: string): Promise<boolean> {
+  private validateStaffManagementId(phoneNumber: string, empId: string , vacationId: string): Promise<boolean> {
+    console.log(empId);
+    console.log(vacationId);
+    
+    
     return new Promise((resolve, reject) => {
-      var path = this.VacationRef.child(phoneNumber).child(this.staffManagementSection).child(this.vacationSection);
+      var path = this.VacationRef.child(phoneNumber).child(this.vacationSection).child(empId);
       path.once('value', snapshot => {
         if (snapshot.val() == null) {
           var error = {
@@ -29,7 +33,7 @@ class VacationFirebaseManager {
         } else {
           var ths = Object.keys(snapshot.toJSON());
           if (ths.length) {
-            if (ths.includes(empId)) {
+            if (ths.includes(vacationId)) {
               resolve(true);
             } else {
               var e = {
@@ -54,7 +58,7 @@ class VacationFirebaseManager {
 
   getVacation(phoneNumber: string, empId: string): Promise<object> {
     return new Promise<object>((resolve, reject) => {
-      var path = this.VacationRef.child(phoneNumber).child(this.staffManagementSection).child(this.vacationSection);
+      var path = this.VacationRef.child(phoneNumber).child(this.vacationSection);
       path.once('value', snapshot => {
         if (snapshot.val() == null) {
           var error = {
@@ -77,9 +81,9 @@ class VacationFirebaseManager {
 
   createEmployeeVacation(phoneNumber: string, data: VacationDto, empId: string): Promise<object> {
     var vacationId = createUniqueId(data.startDate, data.endDate, empId);
+    data["vacationId"] = vacationId;
     return new Promise<object>((resolve, reject) => {
       var path = this.VacationRef.child(phoneNumber)
-        .child(this.staffManagementSection)
         .child(this.vacationSection)
         .child(empId)
         .child(vacationId.toString())
@@ -100,10 +104,9 @@ class VacationFirebaseManager {
 
   updateVacation(phoneNumber: string, data: VacationDto, empId: string, vacationId: string): Promise<object> {
     return new Promise<object>((resolve, reject) => {
-      this.validateStaffManagementId(phoneNumber, empId)
+      this.validateStaffManagementId(phoneNumber, empId , vacationId)
         .then(() => {
           this.VacationRef.child(phoneNumber)
-            .child(this.staffManagementSection)
             .child(this.vacationSection)
             .child(empId)
             .child(vacationId)
@@ -128,7 +131,7 @@ class VacationFirebaseManager {
 
   deleteVacation(phoneNumber: string, empId: string, vacationId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      var path = this.VacationRef.child(phoneNumber).child(this.staffManagementSection).child(this.vacationSection).child(empId).child(vacationId).remove();
+      var path = this.VacationRef.child(phoneNumber).child(this.vacationSection).child(empId).child(vacationId).remove();
       path
         .then(() => {
           resolve({

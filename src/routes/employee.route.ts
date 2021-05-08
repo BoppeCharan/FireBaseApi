@@ -23,7 +23,7 @@ class staffManagementRoute implements Route {
     this.router.post(`${this.employeePath}`, staffMiddleware(), validationMiddleware(EmployeeDto, 'body'), this.staffManagementController.addEmployee);
     this.router.post(`${this.vacationPath}/:employeeId`, this.vacationController.addVacation);
     this.router.put(
-      `${this.employeePath}/:emp_id`,
+      `${this.employeePath}/:employeeId`,
       staffMiddleware(),
       validationMiddleware(EmployeeDto, 'body', true),
       this.staffManagementController.updateEmployees,
