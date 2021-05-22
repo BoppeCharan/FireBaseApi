@@ -1,4 +1,4 @@
-import { IsString, IsObject, IsNumber } from 'class-validator';
+import { IsString } from 'class-validator';
 import { PaymentDetailsDto } from './paymentDetails.dtos';
 
 export class EmployeeDto {
@@ -8,7 +8,7 @@ export class EmployeeDto {
 	public firstName: string;
 	@IsString()
 	public age: string;
-	@IsNumber()
+	@IsString()
 	public phoneNumber: string;
 	@IsString()
 	public joiningDate: string;
