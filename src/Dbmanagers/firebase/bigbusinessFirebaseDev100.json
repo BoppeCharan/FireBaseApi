@@ -1,12 +1,10 @@
 {
-  "type": "service_account",
-  "project_id": "bigbusiness-dev",
-  "private_key_id": "b22cfbd5f6ff79e8c65c4bd5dc8bae56aafbc76c",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDUg0Q9KBeU++3N\nQlBpcjZ9sJ5djGJvyEh5BPsBvOOBJ23iZINVwiRUShSxfDqmfN8RbO4gpJfx2rIE\n7/TQmwA99csEdqaJNQ6iuwW2HmwJzbO9M+Qt1aIxHAUtWRaXACqqoIUTqR49cK4V\nigiXO8bpYQWuehvd5fPAAyoQJz1Z3XhomgSW9nYfyTDUVwexrDDQ0OB+z0qvoVdc\nFcvXaqy0PUezg2i6kRlk6/N7fFD+JpBIfQEZT7VLxD98Eo99OoNjRm1fFaHl/sYE\nS0GPEI0mnmLqGkvPNC69pzOyTrn6dIT/2HlL/pMAwIsL/JU7c6XlpnCcAC95G3eK\n4GHljHPtAgMBAAECggEAByzoJMZ8nAUGSlbHCfXCHZaqlORfaIB940mF7iZCFO4k\nuYRaTjl6v4vWzLKx9PAkxLJbDKgcvJz9Q3RqCDx2PXarTwXF6WkXYEA/WPRdrSu7\nD2mNS/eO0pNXIL5a0xNoMrsDyJ5Tt+WyQxDrlFZU3jQZRy22pinproiM0YnO+lXp\nGip722zW60/jU6o6axjTvK8hO/3WtUFCq5n4THK6z3tCs9h5XROKWg9L6GT4ejLY\n2TTuwIWnv+gjNThDvQCYtDBb9WcfDc+AUeZZSo25P2Eu1E3j5suYyPfhZSb1Q4uD\nlT4++OnBKt9cLy8S9oLAoHnn5eASH2IB5PnHOjPP8QKBgQDwle29v/MQk8rZJI7B\n0UXQu6FeqAxC3WvnNLfCH+Wzg9YeQ2uoP9RRT0BeVa2XlRsanaEdVxJ47hdAccbJ\nBF/2jHeSbd0aw1pBVblnSBE6LtlJbsKfrmTeZbSznLAdQ7y4mWc4c2lql2Ypr1Ah\noIBghwvH7PY+U4Sv+X1T34laiQKBgQDiIONNqCL1iuXDCireZNXNheawxnXmoHxJ\nbuyFL4Ez7z4g/+SN/qcs5VVv0OMBAIpOk+Go2+7OUcXbJ5Z1DdxWuLi92tNmzuWY\n8FucbwYiWOsAg4ft6hHnGQgwQWLeXeUJh/4eN6cPnsJvkT5bUfHstMna7/Gg2Es4\n1EYNHpdlRQKBgE/J+YHPsiYSTdj8FdhTtmrGf3ssEnzugEW6pyLbf0us8osw4vh2\nysx4kyl2Es9N5SJLms5nPTocBFwcH8g1CjpzVYibpROmLD2013tYXFZGiUugTy20\nIcHcSzSyR3o9J861GZWQOSrfsUMr4FB2sXzR7OdOQFBlVIEkJht17FC5AoGAdj3W\nPbwmk5iOrh757ZJyjeZvi44rBm5yrv9WpAoEGIEITr8f5vP6vKoqs65ZlSOQLqh7\nPg3K4I231PHtZcXaqmorB/ONyVt0iTVd4f3YCkvOjlU41boopFvdgUYficE1S3eV\n9H0LWUqdxzL+lUfTJgAe8OG4ym9vXgb5nlCZv7UCgYEAj2a7I3/1QDrrl88NNBz3\nSmNF1ym9vDBjMDJ/zsN3k1YtDooEBgFw4tmdKLiRAtMvAZKctkBRO4GeaAOhcZDo\ni+A2mykgQ4WqZyah1mbV0iFgDUFGYNA4LWfEgCiXtvpgVk36eOxzTvslvqlQTnch\nzrcUP8sgqhV/WleOI92xjmg=\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-r5q2c@bigbusiness-dev.iam.gserviceaccount.com",
-  "client_id": "105958241962633962014",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-r5q2c%40bigbusiness-dev.iam.gserviceaccount.com"
+  "apiKey": "AIzaSyBIBFWyp9nYNEHZJ-NcrnPdkXRocDyoDkk",
+  "authDomain": "staffmgnt-api.firebaseapp.com",
+  "databaseURL": "https://staffmgnt-api-default-rtdb.firebaseio.com",
+  "projectId": "staffmgnt-api",
+  "storageBucket": "staffmgnt-api.appspot.com",
+  "messagingSenderId": "817864051909",
+  "appId": "1:817864051909:web:8320a50daad927942a34ac",
+  "measurementId": "G-9V6SQ91BKG"
 }
